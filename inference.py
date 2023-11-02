@@ -117,7 +117,12 @@ print(f"The split method is: {split}")
 
 for i in range(5):
     train_folds = ''.join([str(j) for j in range(5) if j != i])
-    file_path = f"processed_data/{dataset}/{split}/{split}_fold_{i}.csv"
+    if dataset == "TEINet" and split == "RandomTCR":
+        # Using the pre-processed RandomTCR data provided by the TEINet baseline.
+        file_path = f"processed_data/{dataset}/{split}/test_fold_{i}_random.csv"
+    else:
+        file_path = f"processed_data/{dataset}/{split}/{split}_fold_{i}.csv"
+
     model_path = f"models/{dataset}/{split}/{dataset}_{train_folds}_{i}.pth"
     embedding_path = f"models/{dataset}/{dataset}_embeddings.pkl"
 

@@ -13,6 +13,9 @@ The project's folder structure is as follows:
 
   The naming convention for model files is as follows: `XXXXX_0123_4`, where `XXXXX` represents the dataset name, `0123` represents the fold used for training, and `4` indicates that the model is used for testing.
 
+  You can download our 40 models for inference [here](https://drive.google.com/file/d/1YAn3odlTLBGOc129NIV3g0IMKsbcOZqB/view?usp=sharing).
+
+
 - **processed_data** folder:
 
   This folder contains the raw data for each dataset and the pre-processed 5-fold data. These data are used for training and testing the models.
