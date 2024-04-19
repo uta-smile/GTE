@@ -40,7 +40,10 @@ class GraphNet(torch.nn.Module):
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--gpu", default=1, type=int, help="GPU id to use. Default is 0.")
+    # parser.add_argument("--gpu", default=1, type=int, help="GPU id to use. Default is 1.")
+    parser.add_argument("--device", default="cpu", choices=["cpu", "gpu"], type=str, help="cpu or gpu")
+    parser.add_argument("--gpu-id", default=0, type=int, help="GPUs ID")
+
     parser.add_argument(
         "--split",
         default="RandomTCR",
@@ -106,7 +109,16 @@ def get_test_data(test_path,embedding_path):
 
 
 args = parse_args()
-device = torch.device(f"cuda:{args.gpu}" if torch.cuda.is_available() else "cpu")
+# device = torch.device(f"cuda:{args.gpu}" if torch.cuda.is_available() else "cpu")
+
+
+if args.device == "cpu" or not torch.cuda.is_available():
+    device = torch.device("cpu")
+elif args.device == "gpu":
+    device = torch.device(f"cuda:{args.gpu_id}" if torch.cuda.is_available() else "cpu")
+else:
+    device = torch.device("cpu")
+
 dataset = args.dataset
 split = args.split
 
