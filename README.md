@@ -66,6 +66,14 @@ The project's folder structure is as follows:
      - Default: "pMTnet"
      - Choices: ["McPAS", "pMTnet", "VDJdb", "TEINet"]
 
+   - `--device`:
+     - Default: "cpu"
+     - Choices: ["cpu", "gpu"]
+
+   - `--gpu_id`:
+     - Default: 0
+     - Description: When using a GPU, this specifies which GPU to use by its ID. The default is the first GPU (ID 0).
+
 4. **Example Output**:
     ```shell
     You chose the dataset: pMTnet
