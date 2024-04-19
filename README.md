@@ -73,10 +73,10 @@ The project's folder structure is as follows:
    - `--gpu_id`:
      - Default: 0
      - Description: When using a GPU, this specifies which GPU to use by its ID. The default is the first GPU (ID 0).
-     - Example:  
-     ```shell
-   python inference.py --split RandomTCR --dataset pMTnet --device gpu --gpu_id 0
-   ```
+     - Example:
+      ```shell
+        python inference.py --split RandomTCR --dataset pMTnet --device gpu --gpu_id 0
+      ```
 
 4. **Example Output**:
     ```shell
