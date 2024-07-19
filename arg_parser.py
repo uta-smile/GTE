@@ -19,7 +19,7 @@ def parse_args():
     # parser.add_argument("--split", default="RandomTCR", type=str, help="Path to training data file.")
     parser.add_argument(
         "--split",
-        default="RandomTCR",
+        default="StrictTCR",
         type=str,
         choices=["RandomTCR", "StrictTCR", "UniformEpitope"],
         help="Choose split method: RandomTCR or StrictTCR or UniformEpitope."
