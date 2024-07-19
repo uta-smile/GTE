@@ -1,0 +1,29 @@
+dataset_name: TEINet
+path: processed_data/TEINet/StrictTCR
+save_model: results/TEINet_0123_4.pth
+embeddings_path: models/TEINet/embeddings.pkl
+
+
+
+RandomTCR:
+  train_data:
+    file_list:
+      - test_fold_0_random.csv
+      - test_fold_1_random.csv
+      - test_fold_2_random.csv
+      - test_fold_3_random.csv
+  test_data:
+    file_list:
+      - test_fold_4_random.csv
+  
+
+StrictTCR:
+  train_data:
+    file_list:
+      - StrictTCR_fold_0.csv
+      - StrictTCR_fold_1.csv
+      - StrictTCR_fold_2.csv
+      - StrictTCR_fold_3.csv
+  test_data:
+    file_list:
+      - StrictTCR_fold_4.csv

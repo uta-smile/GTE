@@ -1,0 +1,29 @@
+dataset_name: McPAS
+path: processed_data/McPAS/StrictTCR
+save_model: results/McPAS_0123_4.pth
+embeddings_path: models/McPAS/McPAS_embeddings.pkl
+
+RandomTCR:
+  train_data:
+    file_list:
+      - RandomTCR_fold_0.csv
+      - RandomTCR_fold_1.csv
+      - RandomTCR_fold_2.csv
+      - RandomTCR_fold_3.csv
+  test_data:
+    file_list:
+      - RandomTCR_fold_4.csv
+  
+
+StrictTCR:
+  train_data:
+    file_list:
+      - StrictTCR_fold_0.csv
+      - StrictTCR_fold_1.csv
+      - StrictTCR_fold_2.csv
+      - StrictTCR_fold_3.csv
+  test_data:
+    file_list:
+      - StrictTCR_fold_4.csv
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+
