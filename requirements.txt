@@ -3,3 +3,5 @@ scikit-learn
 pandas
 numpy
 torch-geometric
+pyyaml
+libauc==1.3.0
