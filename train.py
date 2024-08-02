@@ -117,46 +117,6 @@ for epoch in range(num_epochs):
         if roc_auc_valid > best_valid_roc:
             best_valid_roc = roc_auc_valid
             torch.save(model.state_dict(), configs['save_model'])
-            # 
-            if args.dynamic_graph:
-                if epoch >= args.dynamic_epochs:
-                    preds = torch.sigmoid(preds)
-
-                    positive_edges = train_data.edge_index[:, y_true == 1]
-                    false_positive_mask = (preds > 0.5) & (y_true == 0)
-                    false_positive_edges = train_data.edge_index[:, false_positive_mask]      
-                    true_negative_mask = (preds <= 0.5) & (y_true == 0)
-                    true_negative_edges = train_data.edge_index[:, true_negative_mask]
-
-                    true_negative_edge_index = true_negative_edges.cpu().numpy()
-
-                    negative_dict = collections.defaultdict(list)
-                    cut_true_negative_edge_index, for_gen_negative_edge_index =  train_test_split(true_negative_edge_index.T, test_size=args.dynamic_ratio, random_state=(epoch+1))
-
-                    for node1, node2 in for_gen_negative_edge_index:
-                        negative_dict[node2].append(node1)
-
-                    new_negative_edges = set()
-                    for node2, node1_list in negative_dict.items():
-                        random.seed((epoch+1))
-                        sampled_node1_list = random.sample(node1_list, min(len(node1_list), 10))
-                        for node1 in sampled_node1_list: 
-                            new_tuple = (node1, node2) 
-                            if new_tuple not in positive_edges.cpu().numpy().tolist(): 
-                                new_negative_edges.add(new_tuple)
-
-
-                    new_negative_edges = np.array(list(new_negative_edges)).T 
-                    new_negative_edges_torch = torch.tensor(new_negative_edges, device=train_data.edge_index.device)
-
-                    new_edges = torch.cat((positive_edges, new_negative_edges_torch, false_positive_edges, torch.tensor(cut_true_negative_edge_index.T, device=train_data.edge_index.device)), dim=1)
-                    new_labels = torch.cat((torch.ones(positive_edges.shape[1], device=train_data.y.device), 
-                                            torch.zeros(new_negative_edges.shape[1], device=train_data.y.device), 
-                                            torch.zeros(false_positive_edges.shape[1], device=train_data.y.device), 
-                                            torch.zeros(cut_true_negative_edge_index.shape[0], device=train_data.y.device)), dim=0)        
-                    new_train_data = Data(x=train_data.x, edge_index=new_edges, y=new_labels)
-                    train_data = new_train_data
-
     
     print("Epoch: {}/{}, Loss: {:.7f}, Train Acc: {:.4f}, Test Acc: {:.4f}, Train AUC: {:.4f}, Train APUR: {:.4f}, Test AUC: {:.4f}, Test AUPR: {:.4f}".format(epoch+1, num_epochs, total_loss.item(), accuracy, valid_acc, roc_auc, aupr, roc_auc_valid, valid_aupr))
     
